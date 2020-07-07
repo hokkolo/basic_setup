@@ -34,3 +34,13 @@
         - apt: name=vim state=present
       when: ansible_os_family == 'Debian'
       become: yes
+    - name: Install ps on rpm-based
+      block:
+        - yum: name=procps state=present
+      when: ansible_os_family == 'Redhat'
+      become: yes
+    - name: Install ps on debian-based
+      block:
+        - apt: name=procps state=present
+      when: ansible_os_family == 'Debian'
+      become: yes
