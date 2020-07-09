@@ -1,46 +1,44 @@
 ---
 - name: Basic Linux tools installation
   hosts: localhost
+
   tasks: 
-    - name: Install net-tools rpm-based
+    - name: Install Basic tools on rpm-based
       block:
-        - yum: name=net-tools state=present
+        - name: Install net-tools on rpm-based 
+          yum: name=net-tools state=present
+
+        - name: Install openssh on rpm-based
+          yum: name=sshd state=present
+
+        - name: Enable and start ssh service
+          service: name=sshd state=started enabled=yes
+
+        - name: Install vim on rpm-based
+          yum: name=vim state=present          
+  
+        - name: install ps on rpm based
+          yum: name=procpus state=present
+
       when: ansible_os_family == 'RedHat'
       become: yes
+
     - name: Install net-tools debian-based
       block:
-        - apt: name=net-tools state=present
-      when: ansible_os_family == 'Debian'
-      become: yes
-    - name: Install Openssh rpm-based
-      block:
-        - yum: name=ssh state=present
-        - service: name=sshd state=started enabled=yes
-      when: ansible_os_family == 'RedHat'
-      become: yes
-    - name: Install Openssh debian-based
-      block:
-        - apt: name=ssh state=present
-        - service: name=sshd state=started enabled=yes
-      when: ansible_os_family == 'Debian'
-      become: yes
-    - name: Install vim on rpm-based
-      block:
-        - yum: name=vim state=present
-      when: ansible_os_family == 'RedHat'
-      become: yes 
-    - name: Install vim on debian-based
-      block:
-        - apt: name=vim state=present
-      when: ansible_os_family == 'Debian'
-      become: yes
-    - name: Install ps on rpm-based
-      block:
-        - yum: name=procps state=present
-      when: ansible_os_family == 'Redhat'
-      become: yes
-    - name: Install ps on debian-based
-      block:
-        - apt: name=procps state=present
+        - name: Install net-tools debian-based
+          apt: name=net-tools state=present
+        
+        - name: Install Openssh debian-based
+          apt: name=ssh state=present
+        
+        - name: Enable and start ssh service
+          service: name=sshd state=started enabled=yes
+
+        - name: Install vim on debian-based
+          apt: name=vim state=present
+
+        - name: Install ps on debian-based
+          apt: name=procps state=present
+
       when: ansible_os_family == 'Debian'
       become: yes
