@@ -39,6 +39,9 @@
 
         - name: Install ps on debian-based
           apt: name=procps state=present
-
+        
+        - name: Install tree
+          apt: name=tree state=present
+ 
       when: ansible_os_family == 'Debian'
       become: yes
