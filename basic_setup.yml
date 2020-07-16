@@ -19,12 +19,24 @@
   
         - name: install ps on rpm based
           yum: name=procpus state=present
+        
+        - name: install whois on rpm based
+          yum: name=whois state=present
+       
+        - name: install DNS-utils on rpm-based
+          yum: name=bind-utils state=present
 
       when: ansible_os_family == 'RedHat'
       become: yes
 
     - name: Install net-tools debian-based
       block:
+        - name: Install whois on debian-based
+          apt: name=whois state=present
+
+        - name: Install DNS-utils on debian-based
+          apt: name=dnsutils state=present
+
         - name: Install net-tools debian-based
           apt: name=net-tools state=present
         
