@@ -1,6 +1,6 @@
 ---
 - name: Basic Linux tools installation
-  hosts: localhost
+  hosts: servers
 
   tasks: 
     - name: Install Basic tools on rpm-based
@@ -9,7 +9,7 @@
           yum: name=net-tools state=present
 
         - name: Install openssh on rpm-based
-          yum: name=sshd state=present
+          yum: name=openssh state=present
 
         - name: Enable and start ssh service
           service: name=sshd state=started enabled=yes
@@ -18,7 +18,7 @@
           yum: name=vim state=present          
   
         - name: install ps on rpm based
-          yum: name=procpus state=present
+          yum: name=procps state=present
         
         - name: install whois on rpm based
           yum: name=whois state=present
